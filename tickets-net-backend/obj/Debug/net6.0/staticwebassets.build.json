@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "a0+6du81XBEQSOZiK09waAfw6Lk63yIn9ebJV46tQG8=",
+  "Source": "tickets-net-backend",
+  "BasePath": "_content/tickets-net-backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
