@@ -2,7 +2,7 @@
 
 namespace tickets_net_backend.Repositories
 {
-    public interface IEventRepository : IRepository<Event, int>
+    public interface IEventRepository : IRepositoryAsync<Event, int>
     {
     }
 }

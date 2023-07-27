@@ -14,8 +14,13 @@ namespace tickets_net_backend.Repositories
 
         public void Delete(int id)
         {
-            var foundOrder = GetById(id);
-            
+            DeleteAsync(id).Wait();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var foundOrder = await GetByIdAsync(id);
+
             if (foundOrder == null)
             {
                 return;
@@ -27,19 +32,29 @@ namespace tickets_net_backend.Repositories
 
         public IEnumerable<Order> GetAll()
         {
-            var orders = _dbContext.Orders
-                                   .Include(o => o.TicketCategory);
-                                   // .Include(o => o.TicketCategory.Event);
+            return GetAllAsync().Result;
+        }
+
+        public async Task<IEnumerable<Order>> GetAllAsync()
+        {
+            var orders = await _dbContext.Orders
+                                   .Include(o => o.TicketCategory)
+                                   .ToListAsync();
 
             return orders;
         }
 
         public Order? GetById(int id)
         {
+            return GetByIdAsync(id).Result;
+        }
+
+        public Task<Order?> GetByIdAsync(int id)
+        {
             var foundOrder = _dbContext.Orders
                                        .Include(o => o.TicketCategory)
                                        .Where(o => o.OrderId == id)
-                                       .FirstOrDefault();
+                                       .FirstOrDefaultAsync();
 
             return foundOrder;
         }
@@ -49,11 +64,22 @@ namespace tickets_net_backend.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<Order> SaveAsync(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
         public Order? Update(Order order)
         {
-            var foundOrder = GetById(order.OrderId);
+            return UpdateAsync(order).Result;
+        }
 
-            if (foundOrder == null) {
+        public async Task<Order?> UpdateAsync(Order order)
+        {
+            var foundOrder = await GetByIdAsync(order.OrderId);
+
+            if (foundOrder == null)
+            {
                 return null;
             }
 

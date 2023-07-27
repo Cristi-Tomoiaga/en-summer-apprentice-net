@@ -17,22 +17,38 @@ namespace tickets_net_backend.Repositories
             throw new NotImplementedException();
         }
 
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Event> GetAll()
         {
-            var events = _dbContext.Events
+            return GetAllAsync().Result;
+        }
+
+        public async Task<IEnumerable<Event>> GetAllAsync()
+        {
+            var events = await _dbContext.Events
                                    .Include(e => e.Venue)
-                                   .Include(e => e.EventType);
+                                   .Include(e => e.EventType)
+                                   .ToListAsync();
 
             return events;
         }
 
         public Event? GetById(int id)
         {
-            var foundEvent = _dbContext.Events
+            return GetByIdAsync(id).Result;
+        }
+
+        public async Task<Event?> GetByIdAsync(int id)
+        {
+            var foundEvent = await _dbContext.Events
                                        .Include(e => e.Venue)
                                        .Include(e => e.EventType)
                                        .Where(e => e.EventId == id)
-                                       .FirstOrDefault();
+                                       .FirstOrDefaultAsync();
 
             return foundEvent;
         }
@@ -42,7 +58,17 @@ namespace tickets_net_backend.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<Event> SaveAsync(Event e)
+        {
+            throw new NotImplementedException();
+        }
+
         public Event? Update(Event e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Event?> UpdateAsync(Event e)
         {
             throw new NotImplementedException();
         }

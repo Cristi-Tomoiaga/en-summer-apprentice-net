@@ -2,7 +2,7 @@
 
 namespace tickets_net_backend.Repositories
 {
-    public interface IOrderRepository : IRepository<Order, int>
+    public interface IOrderRepository : IRepositoryAsync<Order, int>
     {
     }
 }

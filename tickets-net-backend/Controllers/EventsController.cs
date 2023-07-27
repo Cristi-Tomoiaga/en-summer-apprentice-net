@@ -20,9 +20,9 @@ namespace tickets_net_backend.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<EventDto>> GetAll()
+        public async Task<ActionResult<List<EventDto>>> GetAll()
         {
-            var events = _eventRepository.GetAll();
+            var events = await _eventRepository.GetAllAsync();
 
             var eventsDto = _mapper.Map<List<EventDto>>(events);
 
@@ -30,9 +30,9 @@ namespace tickets_net_backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<EventDto> GetById(int id)
+        public async Task<ActionResult<EventDto>> GetById(int id)
         {
-            var foundEvent = _eventRepository.GetById(id);
+            var foundEvent = await _eventRepository.GetByIdAsync(id);
 
             if (foundEvent == null)
             {

@@ -22,9 +22,9 @@ namespace tickets_net_backend.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<OrderGetDto>> GetAll()
+        public async Task<ActionResult<List<OrderGetDto>>> GetAll()
         {
-            var orders = _orderRepository.GetAll();
+            var orders = await _orderRepository.GetAllAsync();
 
             var ordersDto = _mapper.Map<List<OrderGetDto>>(orders);
 
@@ -32,9 +32,9 @@ namespace tickets_net_backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<OrderGetDto> GetById(int id)
+        public async Task<ActionResult<OrderGetDto>> GetById(int id)
         {
-            var foundOrder = _orderRepository.GetById(id);
+            var foundOrder = await _orderRepository.GetByIdAsync(id);
 
             if (foundOrder == null)
             {
@@ -47,16 +47,16 @@ namespace tickets_net_backend.Controllers
         }
 
         [HttpPatch("{id}")]
-        public ActionResult<OrderGetDto> Patch([FromRoute] int id, [FromBody] OrderPatchDto orderPatch)
+        public async Task<ActionResult<OrderGetDto>> Patch([FromRoute] int id, [FromBody] OrderPatchDto orderPatch)
         {
-            var foundOrder = _orderRepository.GetById(id);
+            var foundOrder = await _orderRepository.GetByIdAsync(id);
 
             if (foundOrder == null)
             {
                 return NotFound();
             }
 
-            var ticketCategory = _ticketCategoryRepository.GetById(orderPatch.TicketCategoryId);
+            var ticketCategory = await _ticketCategoryRepository.GetByIdAsync(orderPatch.TicketCategoryId);
 
             if (ticketCategory == null)
             {
@@ -71,7 +71,7 @@ namespace tickets_net_backend.Controllers
             foundOrder.TicketCategory = ticketCategory;
             foundOrder.NumberOfTickets = orderPatch.NumberOfTickets;
             foundOrder.TotalPrice = foundOrder.NumberOfTickets * ticketCategory.Price;
-            var updatedOrder = _orderRepository.Update(foundOrder);
+            var updatedOrder = await _orderRepository.UpdateAsync(foundOrder);
 
             var orderGetDto = _mapper.Map<OrderGetDto>(updatedOrder);
 
@@ -79,16 +79,16 @@ namespace tickets_net_backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var foundOrder = _orderRepository.GetById(id);
+            var foundOrder = await _orderRepository.GetByIdAsync(id);
 
             if (foundOrder == null)
             {
                 return NotFound();
             }
 
-            _orderRepository.Delete(id);
+            await _orderRepository.DeleteAsync(id);
 
             return NoContent();
         }

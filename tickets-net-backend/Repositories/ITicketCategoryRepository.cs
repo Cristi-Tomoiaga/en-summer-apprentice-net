@@ -2,7 +2,7 @@
 
 namespace tickets_net_backend.Repositories
 {
-    public interface ITicketCategoryRepository : IRepository<TicketCategory, int>
+    public interface ITicketCategoryRepository : IRepositoryAsync<TicketCategory, int>
     {
     }
 }
