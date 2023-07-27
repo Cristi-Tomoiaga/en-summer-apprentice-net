@@ -16,6 +16,8 @@ builder.Services.AddDbContext<TicketsSystemContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TicketsDatabase")));
 
 builder.Services.AddTransient<IEventRepository, EventRepository>();
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+builder.Services.AddTransient<ITicketCategoryRepository, TicketCategoryRepository>();
 
 var app = builder.Build();
 

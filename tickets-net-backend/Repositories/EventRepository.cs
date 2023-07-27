@@ -42,7 +42,7 @@ namespace tickets_net_backend.Repositories
             throw new NotImplementedException();
         }
 
-        public Event Update(Event e)
+        public Event? Update(Event e)
         {
             throw new NotImplementedException();
         }
