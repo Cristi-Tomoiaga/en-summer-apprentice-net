@@ -85,3 +85,5 @@ E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\obj\Deb
 E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\obj\Debug\net6.0\tickets-net-backend.pdb
 E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\obj\Debug\net6.0\tickets-net-backend.genruntimeconfig.cache
 E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\obj\Debug\net6.0\ref\tickets-net-backend.dll
+E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\bin\Debug\net6.0\AutoMapper.dll
+E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

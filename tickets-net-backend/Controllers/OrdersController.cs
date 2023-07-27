@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tickets_net_backend.Models.Dto;
 using tickets_net_backend.Repositories;
@@ -11,11 +12,13 @@ namespace tickets_net_backend.Controllers
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ITicketCategoryRepository _ticketCategoryRepository;
+        private readonly IMapper _mapper;
 
-        public OrdersController(IOrderRepository orderRepository, ITicketCategoryRepository ticketCategoryRepository)
+        public OrdersController(IOrderRepository orderRepository, ITicketCategoryRepository ticketCategoryRepository, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _ticketCategoryRepository = ticketCategoryRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -23,14 +26,7 @@ namespace tickets_net_backend.Controllers
         {
             var orders = _orderRepository.GetAll();
 
-            var ordersDto = orders.Select(o => new OrderGetDto
-            {
-                EventId = o.TicketCategory?.EventId ?? 0,
-                TicketCategoryId = o.TicketCategoryId ?? 0,
-                Timestamp = o.OrderedAt ?? DateTime.Now,
-                NumberOfTickets = o.NumberOfTickets ?? 0,
-                TotalPrice = o.TotalPrice ?? 0m,
-            });
+            var ordersDto = _mapper.Map<List<OrderGetDto>>(orders);
 
             return Ok(ordersDto);
         }
@@ -45,14 +41,7 @@ namespace tickets_net_backend.Controllers
                 return NotFound();
             }
 
-            var orderDto = new OrderGetDto
-            {
-                EventId = foundOrder.TicketCategory?.EventId ?? 0,
-                TicketCategoryId = foundOrder.TicketCategoryId ?? 0,
-                Timestamp = foundOrder.OrderedAt ?? DateTime.Now,
-                NumberOfTickets = foundOrder.NumberOfTickets ?? 0,
-                TotalPrice = foundOrder.TotalPrice ?? 0m,
-            };
+            var orderDto = _mapper.Map<OrderGetDto>(foundOrder);
 
             return Ok(orderDto);
         }
@@ -84,14 +73,7 @@ namespace tickets_net_backend.Controllers
             foundOrder.TotalPrice = foundOrder.NumberOfTickets * ticketCategory.Price;
             var updatedOrder = _orderRepository.Update(foundOrder);
 
-            var orderGetDto = new OrderGetDto
-            {
-                EventId = updatedOrder?.TicketCategory?.EventId ?? 0,
-                TicketCategoryId = updatedOrder?.TicketCategoryId ?? 0,
-                Timestamp = updatedOrder?.OrderedAt ?? DateTime.Now,
-                NumberOfTickets = updatedOrder?.NumberOfTickets ?? 0,
-                TotalPrice = updatedOrder?.TotalPrice ?? 0m,
-            };
+            var orderGetDto = _mapper.Map<OrderGetDto>(updatedOrder);
 
             return Ok(orderGetDto);
         }

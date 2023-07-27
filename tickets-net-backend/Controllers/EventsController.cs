@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tickets_net_backend.Models.Dto;
 using tickets_net_backend.Repositories;
@@ -10,10 +11,12 @@ namespace tickets_net_backend.Controllers
     public class EventsController : ControllerBase
     {
         private readonly IEventRepository _eventRepository;
+        private readonly IMapper _mapper;
 
-        public EventsController(IEventRepository eventRepository)
+        public EventsController(IEventRepository eventRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -21,14 +24,7 @@ namespace tickets_net_backend.Controllers
         {
             var events = _eventRepository.GetAll();
 
-            var eventsDto = events.Select(e => new EventDto
-            {
-                EventId = e.EventId,
-                EventName = e.EventName ?? string.Empty,
-                EventDescription = e.EventDescription ?? string.Empty,
-                EventType = e.EventType?.EventTypeName ?? string.Empty,
-                Venue = e.Venue?.Location ?? string.Empty
-            });
+            var eventsDto = _mapper.Map<List<EventDto>>(events);
 
             return Ok(eventsDto);
         }
@@ -43,14 +39,7 @@ namespace tickets_net_backend.Controllers
                 return NotFound();
             }
 
-            var eventDto = new EventDto
-            {
-                EventId = foundEvent.EventId,
-                EventName = foundEvent.EventName ?? string.Empty,
-                EventDescription = foundEvent.EventDescription ?? string.Empty,
-                EventType = foundEvent.EventType?.EventTypeName ?? string.Empty,
-                Venue = foundEvent.Venue?.Location ?? string.Empty
-            };
+            var eventDto = _mapper.Map<EventDto>(foundEvent);
 
             return Ok(eventDto);
         }
