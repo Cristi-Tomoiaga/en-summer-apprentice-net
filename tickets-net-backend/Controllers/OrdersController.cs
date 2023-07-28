@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using tickets_net_backend.Models.Dto;
-using tickets_net_backend.Repositories;
+using tickets_net_backend.Services;
 
 namespace tickets_net_backend.Controllers
 {
@@ -10,23 +8,17 @@ namespace tickets_net_backend.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private readonly IOrderRepository _orderRepository;
-        private readonly ITicketCategoryRepository _ticketCategoryRepository;
-        private readonly IMapper _mapper;
+        private readonly IOrderService _orderService;
 
-        public OrdersController(IOrderRepository orderRepository, ITicketCategoryRepository ticketCategoryRepository, IMapper mapper)
+        public OrdersController(IOrderService orderService)
         {
-            _orderRepository = orderRepository;
-            _ticketCategoryRepository = ticketCategoryRepository;
-            _mapper = mapper;
+            _orderService = orderService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<OrderGetDto>>> GetAll()
         {
-            var orders = await _orderRepository.GetAllAsync();
-
-            var ordersDto = _mapper.Map<List<OrderGetDto>>(orders);
+            var ordersDto = await _orderService.GetAllAsync();
 
             return Ok(ordersDto);
         }
@@ -34,14 +26,7 @@ namespace tickets_net_backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderGetDto>> GetById(int id)
         {
-            var foundOrder = await _orderRepository.GetByIdAsync(id);
-
-            if (foundOrder == null)
-            {
-                return NotFound();
-            }
-
-            var orderDto = _mapper.Map<OrderGetDto>(foundOrder);
+            var orderDto = await _orderService.GetByIdAsync(id);
 
             return Ok(orderDto);
         }
@@ -49,31 +34,7 @@ namespace tickets_net_backend.Controllers
         [HttpPatch("{id}")]
         public async Task<ActionResult<OrderGetDto>> Patch([FromRoute] int id, [FromBody] OrderPatchDto orderPatch)
         {
-            var foundOrder = await _orderRepository.GetByIdAsync(id);
-
-            if (foundOrder == null)
-            {
-                return NotFound();
-            }
-
-            var ticketCategory = await _ticketCategoryRepository.GetByIdAsync(orderPatch.TicketCategoryId);
-
-            if (ticketCategory == null)
-            {
-                return BadRequest();
-            }
-
-            if (ticketCategory.EventId != (foundOrder.TicketCategory?.EventId ?? 0)) 
-            {
-                return BadRequest();
-            }
-
-            foundOrder.TicketCategory = ticketCategory;
-            foundOrder.NumberOfTickets = orderPatch.NumberOfTickets;
-            foundOrder.TotalPrice = foundOrder.NumberOfTickets * ticketCategory.Price;
-            var updatedOrder = await _orderRepository.UpdateAsync(foundOrder);
-
-            var orderGetDto = _mapper.Map<OrderGetDto>(updatedOrder);
+            var orderGetDto = await _orderService.PatchAsync(id, orderPatch);
 
             return Ok(orderGetDto);
         }
@@ -81,14 +42,7 @@ namespace tickets_net_backend.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var foundOrder = await _orderRepository.GetByIdAsync(id);
-
-            if (foundOrder == null)
-            {
-                return NotFound();
-            }
-
-            await _orderRepository.DeleteAsync(id);
+            await _orderService.DeleteAsync(id);
 
             return NoContent();
         }

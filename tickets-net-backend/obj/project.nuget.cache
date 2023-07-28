@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "l+g4p2hWJVNY6l8xBHAtyEwzIF/TL0Lg25AKfW1a4eCGrXE0wn4GX281h4eiuqxtyKgtXWxlkN6DQ404sLnjOA==",
+  "dgSpecHash": "xv34oirczXCMwHhoe/WUOvcs01swY0JnUXrlyUlLS9TGRzG8SxOyDdvgGgGBXUKtZ80h7mc6vUZMxnqNtsJ6rg==",
   "success": true,
   "projectFilePath": "E:\\UBB\\Practica\\TechnicalProject\\tickets-net-backend\\tickets-net-backend\\tickets-net-backend.csproj",
   "expectedPackageFiles": [
@@ -46,6 +46,9 @@
     "C:\\Users\\Cristi\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\Cristi\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\Cristi\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\Cristi\\.nuget\\packages\\nlog\\5.2.2\\nlog.5.2.2.nupkg.sha512",
+    "C:\\Users\\Cristi\\.nuget\\packages\\nlog.extensions.logging\\5.3.2\\nlog.extensions.logging.5.3.2.nupkg.sha512",
+    "C:\\Users\\Cristi\\.nuget\\packages\\nlog.web.aspnetcore\\5.3.2\\nlog.web.aspnetcore.5.3.2.nupkg.sha512",
     "C:\\Users\\Cristi\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\Cristi\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\Cristi\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",

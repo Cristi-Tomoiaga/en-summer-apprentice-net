@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using NLog.Web;
 using tickets_net_backend.Controllers;
+using tickets_net_backend.Middlewares;
 using tickets_net_backend.Models;
 using tickets_net_backend.Repositories;
+using tickets_net_backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +22,13 @@ builder.Services.AddTransient<IEventRepository, EventRepository>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<ITicketCategoryRepository, TicketCategoryRepository>();
 
+builder.Services.AddTransient<IEventService, EventService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
 
 var app = builder.Build();
 
@@ -31,6 +40,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthorization();
 

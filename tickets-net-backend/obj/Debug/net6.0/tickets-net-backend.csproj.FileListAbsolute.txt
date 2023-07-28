@@ -87,3 +87,7 @@ E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\obj\Deb
 E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\obj\Debug\net6.0\ref\tickets-net-backend.dll
 E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\bin\Debug\net6.0\AutoMapper.dll
 E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\bin\Debug\net6.0\nlog.config
+E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\bin\Debug\net6.0\NLog.dll
+E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+E:\UBB\Practica\TechnicalProject\tickets-net-backend\tickets-net-backend\bin\Debug\net6.0\NLog.Web.AspNetCore.dll

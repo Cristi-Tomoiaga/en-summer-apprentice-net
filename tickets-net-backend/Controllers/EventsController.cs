@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using tickets_net_backend.Models.Dto;
-using tickets_net_backend.Repositories;
+using tickets_net_backend.Services;
 
 namespace tickets_net_backend.Controllers
 {
@@ -10,21 +8,17 @@ namespace tickets_net_backend.Controllers
     [ApiController]
     public class EventsController : ControllerBase
     {
-        private readonly IEventRepository _eventRepository;
-        private readonly IMapper _mapper;
+        private readonly IEventService _eventService;
 
-        public EventsController(IEventRepository eventRepository, IMapper mapper)
+        public EventsController(IEventService eventService)
         {
-            _eventRepository = eventRepository;
-            _mapper = mapper;
+            _eventService = eventService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<EventDto>>> GetAll()
         {
-            var events = await _eventRepository.GetAllAsync();
-
-            var eventsDto = _mapper.Map<List<EventDto>>(events);
+            var eventsDto = await _eventService.GetAllAsync();
 
             return Ok(eventsDto);
         }
@@ -32,16 +26,9 @@ namespace tickets_net_backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<EventDto>> GetById(int id)
         {
-            var foundEvent = await _eventRepository.GetByIdAsync(id);
+            var foundEventDto = await _eventService.GetByIdAsync(id);
 
-            if (foundEvent == null)
-            {
-                return NotFound();
-            }
-
-            var eventDto = _mapper.Map<EventDto>(foundEvent);
-
-            return Ok(eventDto);
+            return Ok(foundEventDto);
         }
     }
 }
