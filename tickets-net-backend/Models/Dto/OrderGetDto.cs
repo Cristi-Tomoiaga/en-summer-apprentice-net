@@ -2,11 +2,13 @@
 {
     public class OrderGetDto
     {
-        public int EventId { get; set; }
+        public int Id { get; set; }
+
+        public EventDto? Event { get; set; }
 
         public DateTime Timestamp { get; set; }
 
-        public int TicketCategoryId { get; set; }
+        public TicketCategoryDto? TicketCategory { get; set; }
 
         public int NumberOfTickets { get; set; }
 

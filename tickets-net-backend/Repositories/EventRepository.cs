@@ -32,6 +32,7 @@ namespace tickets_net_backend.Repositories
             var events = await _dbContext.Events
                                    .Include(e => e.Venue)
                                    .Include(e => e.EventType)
+                                   .Include(e => e.TicketCategories)
                                    .ToListAsync();
 
             return events;
@@ -47,6 +48,7 @@ namespace tickets_net_backend.Repositories
             var foundEvent = await _dbContext.Events
                                        .Include(e => e.Venue)
                                        .Include(e => e.EventType)
+                                       .Include(e => e.TicketCategories)
                                        .Where(e => e.EventId == id)
                                        .FirstOrDefaultAsync();
 

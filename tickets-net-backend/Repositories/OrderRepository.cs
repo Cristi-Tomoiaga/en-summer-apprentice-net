@@ -39,6 +39,9 @@ namespace tickets_net_backend.Repositories
         {
             var orders = await _dbContext.Orders
                                    .Include(o => o.TicketCategory)
+                                   .Include(o => o.TicketCategory.Event)
+                                   .Include(o => o.TicketCategory.Event.Venue)
+                                   .Include(o => o.TicketCategory.Event.EventType)
                                    .ToListAsync();
 
             return orders;
@@ -53,6 +56,9 @@ namespace tickets_net_backend.Repositories
         {
             var foundOrder = _dbContext.Orders
                                        .Include(o => o.TicketCategory)
+                                       .Include(o => o.TicketCategory.Event)
+                                       .Include(o => o.TicketCategory.Event.Venue)
+                                       .Include(o => o.TicketCategory.Event.EventType)
                                        .Where(o => o.OrderId == id)
                                        .FirstOrDefaultAsync();
 

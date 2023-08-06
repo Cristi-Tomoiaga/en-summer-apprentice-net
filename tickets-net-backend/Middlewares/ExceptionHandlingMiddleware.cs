@@ -49,6 +49,11 @@ namespace tickets_net_backend.Middlewares
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
 
+                case InvalidNumberOfTickets ex:
+                    message = ex.Message;
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
+
                 default:
                     message = "Internal Server Error";
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;

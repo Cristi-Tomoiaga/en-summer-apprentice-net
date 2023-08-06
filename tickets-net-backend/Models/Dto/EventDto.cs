@@ -2,14 +2,22 @@
 {
     public class EventDto
     {
-        public int EventId { get; set; }
+        public int Id { get; set; }
 
-        public string EventName { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
-        public string EventDescription { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
-        public string EventType { get; set; } = string.Empty;
+        public string Type { get; set; } = string.Empty;
 
-        public string Venue { get; set; } = string.Empty;
+        public VenueDto? Venue { get; set; }
+
+        public string Image { get; set; } = string.Empty;
+
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
+
+        public ICollection<TicketCategoryDto> TicketCategories { get; set; } = new List<TicketCategoryDto>();
     }
 }

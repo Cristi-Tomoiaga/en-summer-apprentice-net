@@ -58,6 +58,12 @@ namespace tickets_net_backend.Services
                 throw new InvalidIdException(id, nameof(Order));
             }
 
+            var numberOfTickets = orderPatch.NumberOfTickets;
+            if (numberOfTickets <= 0)
+            {
+                throw new InvalidNumberOfTickets(numberOfTickets);
+            }
+
             var ticketCategory = await _ticketCategoryRepository.GetByIdAsync(orderPatch.TicketCategoryId);
             if (ticketCategory == null)
             {
