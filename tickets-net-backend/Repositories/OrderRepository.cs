@@ -42,6 +42,7 @@ namespace tickets_net_backend.Repositories
                                    .Include(o => o.TicketCategory.Event)
                                    .Include(o => o.TicketCategory.Event.Venue)
                                    .Include(o => o.TicketCategory.Event.EventType)
+                                   .Include(o => o.TicketCategory.Event.TicketCategories)
                                    .ToListAsync();
 
             return orders;
@@ -59,6 +60,7 @@ namespace tickets_net_backend.Repositories
                                        .Include(o => o.TicketCategory.Event)
                                        .Include(o => o.TicketCategory.Event.Venue)
                                        .Include(o => o.TicketCategory.Event.EventType)
+                                       .Include(o => o.TicketCategory.Event.TicketCategories)
                                        .Where(o => o.OrderId == id)
                                        .FirstOrDefaultAsync();
 
