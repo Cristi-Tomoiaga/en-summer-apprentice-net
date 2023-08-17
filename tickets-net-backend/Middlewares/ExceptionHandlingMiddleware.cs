@@ -49,7 +49,7 @@ namespace tickets_net_backend.Middlewares
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
 
-                case InvalidNumberOfTickets ex:
+                case InvalidNumberOfTicketsException ex:
                     message = ex.Message;
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;

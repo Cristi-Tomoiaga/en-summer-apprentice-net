@@ -61,7 +61,7 @@ namespace tickets_net_backend.Services
             var numberOfTickets = orderPatch.NumberOfTickets;
             if (numberOfTickets <= 0)
             {
-                throw new InvalidNumberOfTickets(numberOfTickets);
+                throw new InvalidNumberOfTicketsException(numberOfTickets);
             }
 
             var ticketCategory = await _ticketCategoryRepository.GetByIdAsync(orderPatch.TicketCategoryId);
