@@ -7,7 +7,7 @@ namespace tickets_net_backend.Services
     {
         Task<List<OrderGetDto>> GetAllAsync();
         Task<OrderGetDto> GetByIdAsync(int id);
-        Task<OrderGetDto> PatchAsync(int id, OrderPatchDto orderPatch);
-        Task DeleteAsync(int id);
+        Task<OrderGetDto> PatchAsync(int id, OrderPatchDto orderPatch, int customerId);
+        Task DeleteAsync(int id, int customerId);
     }
 }

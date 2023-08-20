@@ -53,7 +53,14 @@ namespace tickets_net_backend.Middlewares
                     message = ex.Message;
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
-
+                case OwnershipException ex:
+                    message = ex.Message;
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
+                case UnavailableSeatsException ex:
+                    message = ex.Message;
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
                 default:
                     message = "Internal Server Error";
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;

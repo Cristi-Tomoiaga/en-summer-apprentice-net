@@ -19,12 +19,17 @@ namespace tickets_net_backend.Services
             _mapper = mapper;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id, int customerId)
         {
             var foundOrder = await _orderRepository.GetByIdAsync(id);
             if (foundOrder == null)
             {
                 throw new EntityNotFoundException(id, nameof(Order));
+            }
+
+            if (foundOrder.CustomerId != customerId)
+            {
+                throw new OwnershipException(customerId, id);
             }
 
             await _orderRepository.DeleteAsync(id);
@@ -50,12 +55,17 @@ namespace tickets_net_backend.Services
             return orderDto;
         }
 
-        public async Task<OrderGetDto> PatchAsync(int id, OrderPatchDto orderPatch)
+        public async Task<OrderGetDto> PatchAsync(int id, OrderPatchDto orderPatch, int customerId)
         {
             var foundOrder = await _orderRepository.GetByIdAsync(id);
             if (foundOrder == null)
             {
                 throw new InvalidIdException(id, nameof(Order));
+            }
+
+            if (foundOrder.CustomerId != customerId)
+            {
+                throw new OwnershipException(customerId, id);
             }
 
             var numberOfTickets = orderPatch.NumberOfTickets;
@@ -74,6 +84,12 @@ namespace tickets_net_backend.Services
             if (ticketCategory.EventId != eventId)
             {
                 throw new InvalidTicketCategoryException(orderPatch.TicketCategoryId, eventId);
+            }
+
+            var availableSeats = foundOrder.TicketCategory?.Event?.AvailableSeats ?? 0;
+            if (orderPatch.NumberOfTickets > availableSeats)
+            {
+                throw new UnavailableSeatsException(orderPatch.NumberOfTickets, availableSeats, eventId);
             }
 
             foundOrder.TicketCategory = ticketCategory;
