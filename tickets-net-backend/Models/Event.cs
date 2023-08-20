@@ -21,6 +21,8 @@ public partial class Event
 
     public string? ImageUrl { get; set; }
 
+    public int? AvailableSeats { get; set; }
+
     public virtual EventType? EventType { get; set; }
 
     public virtual ICollection<TicketCategory> TicketCategories { get; set; } = new List<TicketCategory>();

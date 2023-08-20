@@ -62,6 +62,9 @@ public partial class TicketsSystemContext : DbContext
             entity.HasIndex(e => new { e.EventName, e.StartDate }, "uq_event_name_start_date").IsUnique();
 
             entity.Property(e => e.EventId).HasColumnName("event_id");
+            entity.Property(e => e.AvailableSeats)
+                .HasComputedColumnSql("([dbo].[uf_GetAvailableSeats]([event_id]))", false)
+                .HasColumnName("available_seats");
             entity.Property(e => e.EndDate)
                 .HasColumnType("datetime")
                 .HasColumnName("end_date");

@@ -406,3 +406,5 @@ FodyWeavers.xsd
 /tickets-net-backend/obj/Debug/net6.0/refint/tickets-net-backend.dll
 /tickets-net-backend/obj/Debug/net6.0/tickets-net-backend.dll
 /tickets-net-backend/obj/Debug/net6.0/tickets-net-backend.pdb
+/.vs/tickets-net-backend/DesignTimeBuild/.dtbcache.v2
+/tickets-net-backend/obj/Debug/net6.0/tickets-net-backend.csproj.CoreCompileInputs.cache
