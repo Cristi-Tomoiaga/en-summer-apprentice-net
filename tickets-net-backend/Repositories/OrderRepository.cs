@@ -93,7 +93,10 @@ namespace tickets_net_backend.Repositories
 
             _dbContext.Orders.Update(order);
             _dbContext.SaveChanges();
-            return order;
+
+            var updatedOrder = await GetByIdAsync(order.OrderId);
+            _dbContext.Events.Entry(updatedOrder.TicketCategory.Event).Reload();
+            return updatedOrder;
         }
     }
 }
