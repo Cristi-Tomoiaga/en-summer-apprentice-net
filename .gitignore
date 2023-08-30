@@ -396,15 +396,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/.vs/ProjectEvaluation/tickets-net-backend.metadata.v7.bin
-/.vs/ProjectEvaluation/tickets-net-backend.projects.v7.bin
-/.vs/tickets-net-backend/v17/.futdcache.v2
-/.vs/tickets-net-backend/v17/.suo
-/tickets-net-backend/bin/Debug/net6.0/tickets-net-backend.dll
-/tickets-net-backend/bin/Debug/net6.0/tickets-net-backend.pdb
-/tickets-net-backend/obj/Debug/net6.0/ref/tickets-net-backend.dll
-/tickets-net-backend/obj/Debug/net6.0/refint/tickets-net-backend.dll
-/tickets-net-backend/obj/Debug/net6.0/tickets-net-backend.dll
-/tickets-net-backend/obj/Debug/net6.0/tickets-net-backend.pdb
-/.vs/tickets-net-backend/DesignTimeBuild/.dtbcache.v2
-/tickets-net-backend/obj/Debug/net6.0/tickets-net-backend.csproj.CoreCompileInputs.cache
