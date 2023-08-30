@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using tickets_net_backend.Exceptions;
-using tickets_net_backend.Models;
-using tickets_net_backend.Models.Dto;
-using tickets_net_backend.Repositories;
+using TicketsNetBackend.Exceptions;
+using TicketsNetBackend.Models;
+using TicketsNetBackend.Models.Dto;
+using TicketsNetBackend.Repositories;
 
-namespace tickets_net_backend.Services
+namespace TicketsNetBackend.Services
 {
     public class EventService : IEventService
     {

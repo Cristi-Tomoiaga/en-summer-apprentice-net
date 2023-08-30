@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
-using tickets_net_backend.Models;
+using TicketsNetBackend.Models;
 
-namespace tickets_net_backend.Exceptions
+namespace TicketsNetBackend.Exceptions
 {
     public class UnavailableSeatsException : Exception
     {

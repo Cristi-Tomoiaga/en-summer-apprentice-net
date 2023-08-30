@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Text.Json;
-using tickets_net_backend.Exceptions;
+using TicketsNetBackend.Exceptions;
 
-namespace tickets_net_backend.Middlewares
+namespace TicketsNetBackend.Middlewares
 {
     public class ExceptionHandlingMiddleware
     {

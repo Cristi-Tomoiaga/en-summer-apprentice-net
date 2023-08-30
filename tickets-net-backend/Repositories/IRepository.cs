@@ -1,5 +1,5 @@
 ﻿
-namespace tickets_net_backend.Repositories
+namespace TicketsNetBackend.Repositories
 {
     public interface IRepository<TEntity, TId> where TEntity : class 
                                                where TId : struct
