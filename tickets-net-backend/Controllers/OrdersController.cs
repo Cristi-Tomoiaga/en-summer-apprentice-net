@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TicketsNetBackend.Models.Dto;
 using TicketsNetBackend.Services;
+using TicketsNetBackend.Utils;
 
 namespace TicketsNetBackend.Controllers
 {
@@ -8,7 +9,7 @@ namespace TicketsNetBackend.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private const int customerId = 3;
+        private readonly int customerId = Constants.PreferredCustomerId;
         private readonly IOrderService _orderService;
 
         public OrdersController(IOrderService orderService)
