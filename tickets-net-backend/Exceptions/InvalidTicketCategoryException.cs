@@ -17,6 +17,6 @@ namespace TicketsNetBackend.Exceptions
         }
 
         public InvalidTicketCategoryException(int ticketCategoryId, int eventId) 
-            : base(FormattableString.CurrentCulture($"The {nameof(TicketCategory)} with id '{ticketCategoryId}' is not available for the {nameof(Event)} with id '{eventId}'.")) { }
+            : base(FormattableString.Invariant($"The {nameof(TicketCategory)} with id '{ticketCategoryId}' is not available for the {nameof(Event)} with id '{eventId}'.")) { }
     }
 }

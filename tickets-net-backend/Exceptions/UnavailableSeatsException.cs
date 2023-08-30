@@ -18,6 +18,6 @@ namespace TicketsNetBackend.Exceptions
         }
 
         public UnavailableSeatsException(int numberOfTickets, int availableSeats, int eventId)
-            : base(FormattableString.CurrentCulture($"Unavailable number of tickets for {nameof(Event)} with the id '{eventId}': requested '{numberOfTickets}' tickets, available '{availableSeats}' seats.")) { }
+            : base(FormattableString.Invariant($"Unavailable number of tickets for {nameof(Event)} with the id '{eventId}': requested '{numberOfTickets}' tickets, available '{availableSeats}' seats.")) { }
     }
 }

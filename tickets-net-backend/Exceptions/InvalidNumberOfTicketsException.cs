@@ -15,6 +15,6 @@
         }
 
         public InvalidNumberOfTicketsException(int numberOfTickets) 
-            : base(FormattableString.CurrentCulture($"Invalid number of tickets '{numberOfTickets}' provided.")) { }
+            : base(FormattableString.Invariant($"Invalid number of tickets '{numberOfTickets}' provided.")) { }
     }
 }
