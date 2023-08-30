@@ -5,7 +5,7 @@ namespace TicketsNetBackend.Services
 {
     public interface IEventService
     {
-        Task<List<EventDto>> GetAllAsync();
+        Task<EventsDto> GetAllAsync();
         Task<EventDto> GetByIdAsync(int id);
     }
 }

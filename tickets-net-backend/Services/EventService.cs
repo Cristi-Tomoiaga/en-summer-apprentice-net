@@ -18,11 +18,11 @@ namespace TicketsNetBackend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<EventDto>> GetAllAsync()
+        public async Task<EventsDto> GetAllAsync()
         {
             var events = await _eventRepository.GetAllAsync();
 
-            var eventsDto = _mapper.Map<List<EventDto>>(events);
+            var eventsDto = _mapper.Map<EventsDto>(events);
             return eventsDto;
         }
 

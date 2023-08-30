@@ -17,7 +17,7 @@ namespace TicketsNetBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OrderGetDto>>> GetAll()
+        public async Task<ActionResult<OrdersDto>> GetAll()
         {
             var ordersDto = await _orderService.GetAllAsync();
 

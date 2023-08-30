@@ -16,7 +16,7 @@ namespace TicketsNetBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<EventDto>>> GetAll()
+        public async Task<ActionResult<EventsDto>> GetAll()
         {
             var eventsDto = await _eventService.GetAllAsync();
 

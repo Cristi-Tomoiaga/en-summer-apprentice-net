@@ -35,11 +35,11 @@ namespace TicketsNetBackend.Services
             await _orderRepository.DeleteAsync(id);
         }
 
-        public async Task<List<OrderGetDto>> GetAllAsync()
+        public async Task<OrdersDto> GetAllAsync()
         {
             var orders = await _orderRepository.GetAllAsync();
 
-            var ordersDto = _mapper.Map<List<OrderGetDto>>(orders);
+            var ordersDto = _mapper.Map<OrdersDto>(orders);
             return ordersDto;
         }
 

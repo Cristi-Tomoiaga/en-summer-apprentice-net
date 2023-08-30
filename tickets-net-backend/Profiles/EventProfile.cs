@@ -20,6 +20,9 @@ namespace TicketsNetBackend.Profiles
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.EventDescription))
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.EventType.EventTypeName))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ImageUrl));
+
+            CreateMap<List<Event>, EventsDto>()
+                .ForMember(dest => dest.Events, opt => opt.MapFrom(src => src));
         }
     }
 }
