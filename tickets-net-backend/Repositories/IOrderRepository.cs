@@ -1,6 +1,6 @@
-﻿using tickets_net_backend.Models;
+﻿using TicketsNetBackend.Models;
 
-namespace tickets_net_backend.Repositories
+namespace TicketsNetBackend.Repositories
 {
     public interface IOrderRepository : IRepositoryAsync<Order, int>
     {

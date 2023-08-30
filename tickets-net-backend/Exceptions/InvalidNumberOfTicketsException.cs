@@ -1,4 +1,4 @@
-﻿namespace tickets_net_backend.Exceptions
+﻿namespace TicketsNetBackend.Exceptions
 {
     public class InvalidNumberOfTicketsException : Exception
     {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using tickets_net_backend.Models;
-using tickets_net_backend.Models.Dto;
+using TicketsNetBackend.Models;
+using TicketsNetBackend.Models.Dto;
 
-namespace tickets_net_backend.Profiles
+namespace TicketsNetBackend.Profiles
 {
     public class OrderProfile : Profile
     {

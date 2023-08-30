@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using tickets_net_backend.Models.Dto;
-using tickets_net_backend.Services;
+using TicketsNetBackend.Models.Dto;
+using TicketsNetBackend.Services;
 
-namespace tickets_net_backend.Controllers
+namespace TicketsNetBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

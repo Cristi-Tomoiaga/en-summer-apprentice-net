@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using tickets_net_backend.Models.Dto;
+using TicketsNetBackend.Models.Dto;
 
-namespace tickets_net_backend.Services
+namespace TicketsNetBackend.Services
 {
     public interface IOrderService
     {
