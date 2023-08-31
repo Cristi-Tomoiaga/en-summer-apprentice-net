@@ -49,8 +49,7 @@ namespace TicketsNetBackend.Repositories
                                        .Include(e => e.Venue)
                                        .Include(e => e.EventType)
                                        .Include(e => e.TicketCategories)
-                                       .Where(e => e.EventId == id)
-                                       .FirstOrDefaultAsync();
+                                       .FirstOrDefaultAsync(e => e.EventId == id);
 
             return foundEvent;
         }

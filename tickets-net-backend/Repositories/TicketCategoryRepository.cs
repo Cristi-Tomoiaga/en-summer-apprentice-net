@@ -41,8 +41,7 @@ namespace TicketsNetBackend.Repositories
         {
             var foundTicketCategory = await _dbContext.TicketCategories
                                                 .Include(tc => tc.Event)
-                                                .Where(tc => tc.TicketCategoryId == id)
-                                                .FirstOrDefaultAsync();
+                                                .FirstOrDefaultAsync(tc => tc.TicketCategoryId == id);
 
             return foundTicketCategory;
         }
