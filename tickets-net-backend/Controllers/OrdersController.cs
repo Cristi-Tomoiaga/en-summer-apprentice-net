@@ -36,7 +36,7 @@ namespace TicketsNetBackend.Controllers
         [HttpPatch("{id}")]
         public async Task<ActionResult<OrderGetDto>> Patch([FromRoute] int id, [FromBody] OrderPatchDto orderPatch)
         {
-            var orderGetDto = await _orderService.PatchAsync(id, orderPatch, customerId);
+            var orderGetDto = await _orderService.PatchAsync(id, customerId, orderPatch);
 
             return Ok(orderGetDto);
         }
