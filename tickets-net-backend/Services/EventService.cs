@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using TicketsNetBackend.Exceptions;
 using TicketsNetBackend.Models;
 using TicketsNetBackend.Models.Dto;
