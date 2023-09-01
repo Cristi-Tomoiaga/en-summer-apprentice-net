@@ -1,4 +1,4 @@
-﻿namespace tickets_net_backend.Exceptions
+﻿namespace TicketsNetBackend.Exceptions
 {
     public class EntityNotFoundException : Exception
     {
@@ -13,6 +13,6 @@
         }
 
         public EntityNotFoundException(int entityId, string entityName) 
-            : base(FormattableString.CurrentCulture($"Entity '{entityName}' with id '{entityId}' was not found.")) { }
+            : base(FormattableString.Invariant($"Entity '{entityName}' with id '{entityId}' was not found.")) { }
     }
 }

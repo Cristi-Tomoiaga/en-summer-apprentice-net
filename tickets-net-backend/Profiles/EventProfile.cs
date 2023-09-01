@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using tickets_net_backend.Models;
-using tickets_net_backend.Models.Dto;
+using TicketsNetBackend.Models;
+using TicketsNetBackend.Models.Dto;
 
-namespace tickets_net_backend.Profiles
+namespace TicketsNetBackend.Profiles
 {
     public class EventProfile : Profile
     {
@@ -20,6 +20,9 @@ namespace tickets_net_backend.Profiles
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.EventDescription))
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.EventType.EventTypeName))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ImageUrl));
+
+            CreateMap<List<Event>, EventsDto>()
+                .ForMember(dest => dest.Events, opt => opt.MapFrom(src => src));
         }
     }
 }

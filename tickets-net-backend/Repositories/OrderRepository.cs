@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using tickets_net_backend.Models;
+using TicketsNetBackend.Models;
 
-namespace tickets_net_backend.Repositories
+namespace TicketsNetBackend.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
@@ -27,7 +27,7 @@ namespace tickets_net_backend.Repositories
             }
 
             _dbContext.Orders.Remove(foundOrder);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
         public IEnumerable<Order> GetAll()
@@ -61,8 +61,7 @@ namespace tickets_net_backend.Repositories
                                        .Include(o => o.TicketCategory.Event.Venue)
                                        .Include(o => o.TicketCategory.Event.EventType)
                                        .Include(o => o.TicketCategory.Event.TicketCategories)
-                                       .Where(o => o.OrderId == id)
-                                       .FirstOrDefaultAsync();
+                                       .FirstOrDefaultAsync(o => o.OrderId == id);
 
             return foundOrder;
         }
@@ -92,10 +91,10 @@ namespace tickets_net_backend.Repositories
             }
 
             _dbContext.Orders.Update(order);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             var updatedOrder = await GetByIdAsync(order.OrderId);
-            _dbContext.Events.Entry(updatedOrder.TicketCategory.Event).Reload();
+            await _dbContext.Events.Entry(updatedOrder.TicketCategory.Event).ReloadAsync();
             return updatedOrder;
         }
     }

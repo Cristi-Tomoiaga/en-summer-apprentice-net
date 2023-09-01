@@ -1,4 +1,4 @@
-﻿namespace tickets_net_backend.Models.Dto
+﻿namespace TicketsNetBackend.Models.Dto
 {
     public class VenueDto
     {

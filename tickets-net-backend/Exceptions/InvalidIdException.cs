@@ -1,4 +1,4 @@
-﻿namespace tickets_net_backend.Exceptions
+﻿namespace TicketsNetBackend.Exceptions
 {
     public class InvalidIdException : Exception
     {
@@ -15,6 +15,6 @@
         }
 
         public InvalidIdException(int entityId, string entityName) 
-            : base(FormattableString.CurrentCulture($"Invalid id '{entityId}' provided for entity '{entityName}'.")) { }
+            : base(FormattableString.Invariant($"Invalid id '{entityId}' provided for entity '{entityName}'.")) { }
     }
 }

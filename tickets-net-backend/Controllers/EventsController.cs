@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using tickets_net_backend.Models.Dto;
-using tickets_net_backend.Services;
+using TicketsNetBackend.Models.Dto;
+using TicketsNetBackend.Services;
 
-namespace tickets_net_backend.Controllers
+namespace TicketsNetBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,7 +16,7 @@ namespace tickets_net_backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<EventDto>>> GetAll()
+        public async Task<ActionResult<EventsDto>> GetAll()
         {
             var eventsDto = await _eventService.GetAllAsync();
 

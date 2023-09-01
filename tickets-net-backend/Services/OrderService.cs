@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using tickets_net_backend.Exceptions;
-using tickets_net_backend.Models;
-using tickets_net_backend.Models.Dto;
-using tickets_net_backend.Repositories;
+using TicketsNetBackend.Exceptions;
+using TicketsNetBackend.Models;
+using TicketsNetBackend.Models.Dto;
+using TicketsNetBackend.Repositories;
 
-namespace tickets_net_backend.Services
+namespace TicketsNetBackend.Services
 {
     public class OrderService : IOrderService
     {
@@ -35,11 +35,11 @@ namespace tickets_net_backend.Services
             await _orderRepository.DeleteAsync(id);
         }
 
-        public async Task<List<OrderGetDto>> GetAllAsync()
+        public async Task<OrdersDto> GetAllAsync()
         {
             var orders = await _orderRepository.GetAllAsync();
 
-            var ordersDto = _mapper.Map<List<OrderGetDto>>(orders);
+            var ordersDto = _mapper.Map<OrdersDto>(orders);
             return ordersDto;
         }
 
@@ -55,7 +55,26 @@ namespace tickets_net_backend.Services
             return orderDto;
         }
 
-        public async Task<OrderGetDto> PatchAsync(int id, OrderPatchDto orderPatch, int customerId)
+        public async Task<OrderGetDto> PatchAsync(int id, int customerId, OrderPatchDto orderPatch)
+        {
+            var foundOrder = await GetOrderAsync(id);
+            CheckOrderOwnership(foundOrder, customerId);
+
+            var ticketCategory = await GetTicketCategoryAsync(orderPatch.TicketCategoryId);
+
+            var eventId = foundOrder.TicketCategory?.EventId ?? 0;
+            CheckTicketCategoryAvailability(ticketCategory, eventId);
+
+            var numberOfTickets = orderPatch.NumberOfTickets;
+            ValidateNumberOfTickets(foundOrder, numberOfTickets, eventId);
+ 
+            var updatedOrder = await ApplyUpdatesToOrder(foundOrder, ticketCategory, numberOfTickets);
+
+            var orderGetDto = _mapper.Map<OrderGetDto>(updatedOrder);
+            return orderGetDto;
+        }
+
+        private async Task<Order> GetOrderAsync(int id)
         {
             var foundOrder = await _orderRepository.GetByIdAsync(id);
             if (foundOrder == null)
@@ -63,42 +82,58 @@ namespace tickets_net_backend.Services
                 throw new InvalidIdException(id, nameof(Order));
             }
 
-            if (foundOrder.CustomerId != customerId)
+            return foundOrder;
+        }
+
+        private async Task<TicketCategory> GetTicketCategoryAsync(int id)
+        {
+            var ticketCategory = await _ticketCategoryRepository.GetByIdAsync(id);
+            if (ticketCategory == null)
             {
-                throw new OwnershipException(customerId, id);
+                throw new InvalidIdException(id, nameof(TicketCategory));
             }
 
-            var numberOfTickets = orderPatch.NumberOfTickets;
+            return ticketCategory;
+        }
+
+        private static void CheckOrderOwnership(Order order, int customerId)
+        {
+            if (order.CustomerId != customerId)
+            {
+                throw new OwnershipException(customerId, order.OrderId);
+            }
+        }
+
+        private static void CheckTicketCategoryAvailability(TicketCategory ticketCategory, int eventId)
+        {
+            if (ticketCategory.EventId != eventId)
+            {
+                throw new InvalidTicketCategoryException(ticketCategory.TicketCategoryId, eventId);
+            }
+        }
+
+        private static void ValidateNumberOfTickets(Order order, int numberOfTickets, int eventId)
+        {
             if (numberOfTickets <= 0)
             {
                 throw new InvalidNumberOfTicketsException(numberOfTickets);
             }
 
-            var ticketCategory = await _ticketCategoryRepository.GetByIdAsync(orderPatch.TicketCategoryId);
-            if (ticketCategory == null)
+            var availableSeats = order.TicketCategory?.Event?.AvailableSeats ?? 0;
+            if (numberOfTickets > availableSeats)
             {
-                throw new InvalidIdException(orderPatch.TicketCategoryId, nameof(TicketCategory));
+                throw new UnavailableSeatsException(numberOfTickets, availableSeats, eventId);
             }
+        }
 
-            var eventId = foundOrder.TicketCategory?.EventId ?? 0;
-            if (ticketCategory.EventId != eventId)
-            {
-                throw new InvalidTicketCategoryException(orderPatch.TicketCategoryId, eventId);
-            }
+        private async Task<Order?> ApplyUpdatesToOrder(Order order, TicketCategory ticketCategory, int numberOfTickets)
+        {
+            order.TicketCategory = ticketCategory;
+            order.NumberOfTickets = numberOfTickets;
+            order.TotalPrice = order.NumberOfTickets * ticketCategory.Price;
+            var updatedOrder = await _orderRepository.UpdateAsync(order);
 
-            var availableSeats = foundOrder.TicketCategory?.Event?.AvailableSeats ?? 0;
-            if (orderPatch.NumberOfTickets > availableSeats)
-            {
-                throw new UnavailableSeatsException(orderPatch.NumberOfTickets, availableSeats, eventId);
-            }
-
-            foundOrder.TicketCategory = ticketCategory;
-            foundOrder.NumberOfTickets = orderPatch.NumberOfTickets;
-            foundOrder.TotalPrice = foundOrder.NumberOfTickets * ticketCategory.Price;
-            var updatedOrder = await _orderRepository.UpdateAsync(foundOrder);
-
-            var orderGetDto = _mapper.Map<OrderGetDto>(updatedOrder);
-            return orderGetDto;
+            return updatedOrder;
         }
     }
 }

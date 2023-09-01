@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
-using tickets_net_backend.Models;
+using TicketsNetBackend.Models;
 
-namespace tickets_net_backend.Exceptions
+namespace TicketsNetBackend.Exceptions
 {
     public class UnavailableSeatsException : Exception
     {
@@ -18,6 +18,6 @@ namespace tickets_net_backend.Exceptions
         }
 
         public UnavailableSeatsException(int numberOfTickets, int availableSeats, int eventId)
-            : base(FormattableString.CurrentCulture($"Unavailable number of tickets for {nameof(Event)} with the id '{eventId}': requested '{numberOfTickets}' tickets, available '{availableSeats}' seats.")) { }
+            : base(FormattableString.Invariant($"Unavailable number of tickets for {nameof(Event)} with the id '{eventId}': requested '{numberOfTickets}' tickets, available '{availableSeats}' seats.")) { }
     }
 }

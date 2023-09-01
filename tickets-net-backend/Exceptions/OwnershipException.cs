@@ -1,6 +1,6 @@
-﻿using tickets_net_backend.Models;
+﻿using TicketsNetBackend.Models;
 
-namespace tickets_net_backend.Exceptions
+namespace TicketsNetBackend.Exceptions
 {
     public class OwnershipException : Exception
     {
@@ -17,6 +17,6 @@ namespace tickets_net_backend.Exceptions
         }
 
         public OwnershipException(int customerId, int orderId) 
-            : base(FormattableString.CurrentCulture($"The {nameof(Customer)} with id '{customerId}' is not the owner of the {nameof(Order)} with id '{orderId}'.")) { }
+            : base(FormattableString.Invariant($"The {nameof(Customer)} with id '{customerId}' is not the owner of the {nameof(Order)} with id '{orderId}'.")) { }
     }
 }

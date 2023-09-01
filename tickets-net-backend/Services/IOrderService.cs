@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using tickets_net_backend.Models.Dto;
+﻿using TicketsNetBackend.Models.Dto;
 
-namespace tickets_net_backend.Services
+namespace TicketsNetBackend.Services
 {
     public interface IOrderService
     {
-        Task<List<OrderGetDto>> GetAllAsync();
+        Task<OrdersDto> GetAllAsync();
         Task<OrderGetDto> GetByIdAsync(int id);
-        Task<OrderGetDto> PatchAsync(int id, OrderPatchDto orderPatch, int customerId);
+        Task<OrderGetDto> PatchAsync(int id, int customerId, OrderPatchDto orderPatch);
         Task DeleteAsync(int id, int customerId);
     }
 }

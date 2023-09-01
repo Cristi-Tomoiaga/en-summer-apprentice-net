@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using tickets_net_backend.Models;
+using TicketsNetBackend.Models;
 
-namespace tickets_net_backend.Repositories
+namespace TicketsNetBackend.Repositories
 {
     public class EventRepository : IEventRepository
     {
@@ -49,8 +49,7 @@ namespace tickets_net_backend.Repositories
                                        .Include(e => e.Venue)
                                        .Include(e => e.EventType)
                                        .Include(e => e.TicketCategories)
-                                       .Where(e => e.EventId == id)
-                                       .FirstOrDefaultAsync();
+                                       .FirstOrDefaultAsync(e => e.EventId == id);
 
             return foundEvent;
         }

@@ -1,6 +1,6 @@
-﻿using tickets_net_backend.Models;
+﻿using TicketsNetBackend.Models;
 
-namespace tickets_net_backend.Exceptions
+namespace TicketsNetBackend.Exceptions
 {
     public class InvalidTicketCategoryException : Exception
     {
@@ -17,6 +17,6 @@ namespace tickets_net_backend.Exceptions
         }
 
         public InvalidTicketCategoryException(int ticketCategoryId, int eventId) 
-            : base(FormattableString.CurrentCulture($"The {nameof(TicketCategory)} with id '{ticketCategoryId}' is not available for the {nameof(Event)} with id '{eventId}'.")) { }
+            : base(FormattableString.Invariant($"The {nameof(TicketCategory)} with id '{ticketCategoryId}' is not available for the {nameof(Event)} with id '{eventId}'.")) { }
     }
 }

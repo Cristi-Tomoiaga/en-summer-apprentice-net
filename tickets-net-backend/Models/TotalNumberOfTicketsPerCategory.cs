@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace tickets_net_backend.Models;
+namespace TicketsNetBackend.Models;
 
 public partial class TotalNumberOfTicketsPerCategory
 {

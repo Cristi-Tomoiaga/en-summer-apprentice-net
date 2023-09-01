@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using tickets_net_backend.Models.Dto;
-using tickets_net_backend.Services;
+using TicketsNetBackend.Models.Dto;
+using TicketsNetBackend.Services;
+using TicketsNetBackend.Utils;
 
-namespace tickets_net_backend.Controllers
+namespace TicketsNetBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private const int customerId = 3;
+        private readonly int customerId = Constants.PreferredCustomerId;
         private readonly IOrderService _orderService;
 
         public OrdersController(IOrderService orderService)
@@ -17,7 +18,7 @@ namespace tickets_net_backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OrderGetDto>>> GetAll()
+        public async Task<ActionResult<OrdersDto>> GetAll()
         {
             var ordersDto = await _orderService.GetAllAsync();
 
@@ -35,7 +36,7 @@ namespace tickets_net_backend.Controllers
         [HttpPatch("{id}")]
         public async Task<ActionResult<OrderGetDto>> Patch([FromRoute] int id, [FromBody] OrderPatchDto orderPatch)
         {
-            var orderGetDto = await _orderService.PatchAsync(id, orderPatch, customerId);
+            var orderGetDto = await _orderService.PatchAsync(id, customerId, orderPatch);
 
             return Ok(orderGetDto);
         }

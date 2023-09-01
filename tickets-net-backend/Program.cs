@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using NLog.Web;
-using tickets_net_backend.Middlewares;
-using tickets_net_backend.Models;
-using tickets_net_backend.Repositories;
-using tickets_net_backend.Services;
+using TicketsNetBackend.Middlewares;
+using TicketsNetBackend.Models;
+using TicketsNetBackend.Repositories;
+using TicketsNetBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

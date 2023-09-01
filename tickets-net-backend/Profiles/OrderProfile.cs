@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using tickets_net_backend.Models;
-using tickets_net_backend.Models.Dto;
+using TicketsNetBackend.Models;
+using TicketsNetBackend.Models.Dto;
 
-namespace tickets_net_backend.Profiles
+namespace TicketsNetBackend.Profiles
 {
     public class OrderProfile : Profile
     {
@@ -12,6 +12,9 @@ namespace tickets_net_backend.Profiles
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.OrderId))
                 .ForMember(dest => dest.Event, opt => opt.MapFrom(src => src.TicketCategory.Event))
                 .ForMember(dest => dest.Timestamp, opt => opt.MapFrom(src => src.OrderedAt));
+
+            CreateMap<List<Order>, OrdersDto>()
+                .ForMember(dest => dest.Orders, opt => opt.MapFrom(src => src));
         }
     }
 }
